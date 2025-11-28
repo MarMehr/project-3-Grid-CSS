@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Comp584 Tech Shop</title>
+
+    <!-- Viewport meta ensures responsive scaling on phones/tablets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Normalize resets browser default styles for consistency -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!-- Main site styles (Flexbox grid, cards, media, row overrides) -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- .wrapper centers content and constrains max width -->
+    <div class="wrapper">
+      <!-- =====================================================
+           ROW 1 — Four cards, displayed as TWO per row (desktop/tablet)
+           Notes:
+           • Uses .row flex container with .col-1 items.
+           • In CSS we override .row-1 .col-1 to 44% so they sit 2-up.
+           • On mobile, they stack to 1 per row automatically.
+           ===================================================== -->
+      <div class="row row-1">
+        <!-- Card 1 (Example of external image URL) -->
+        <article class="col-1 card">
+          <!-- Product title (h3 is appropriate for repeated cards) -->
+          <h3>Aurora 13” Ultrabook</h3>
+          <!-- .media: image is centered between title and details by CSS.
+               Use your own local image by changing src="images/aurora.jpg" -->
+          <figure class="media">
+            <img
+              src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=80"
+              alt="Aurora 13 Ultrabook"
+            />
+          </figure>
+          <!-- Short spec line, kept concise for scannability -->
+          <p><strong>Details:</strong> i5-1240P • 8 GB • 256 GB SSD • 2.4 lb — $799</p>
+          <p>Perfect for students and travel.</p>
+          <!-- Button is just an anchor styled as a button -->
+          <a class="btn" href="#">View details</a>
+        </article>
+
+        <!-- Card 2 (Example of local image file) -->
+        <article class="col-1 card">
+          <h3>Vertex 15” Creator</h3>
+          <figure class="media">
+            <!-- Make sure this file exists next to index.html or in your images/ folder -->
+            <img src="vertex 15.jpg" alt="15 inch creator laptop" />
+          </figure>
+          <p><strong>Details:</strong> Ryzen 7 7840HS • 16 GB • RTX 4060 • 1 TB SSD — $1,599</p>
+          <p>Video &amp; 3D friendly powerhouse.</p>
+          <a class="btn" href="#">View details</a>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="col-1 card">
+          <h3>Pulse 14” Everyday</h3>
+          <figure class="media">
+            <img src="Pulse 14” Everyday.jpg" alt="Everyday laptop" />
+          </figure>
+          <p><strong>Details:</strong> i3-1215U • 8 GB • 256 GB SSD • 10 hr battery — $499</p>
+          <p>Dependable daily driver on a student budget.</p>
+          <a class="btn" href="#">View details</a>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="col-1 card">
+          <h3>Nebula Mini PC</h3>
+          <figure class="media">
+            <img src="Nebula Mini PC.jpg" alt="Mini desktop PC" />
+          </figure>
+          <p><strong>Details:</strong> i5-13400 • 16 GB • 512 GB NVMe • Dual HDMI • USB-C — $699</p>
+          <p>Tiny form factor, big productivity.</p>
+          <a class="btn" href="#">View details</a>
+        </article>
+      </div>
+
+      <!-- =====================================================
+           ROW 2 — Two wide, feature cards
+           Notes:
+           • .col-2 spans approx half width each on desktop.
+           • .media.wide uses 16:9 aspect ratio (good for landscape shots).
+           ===================================================== -->
+      <div class="row row-2">
+        <!-- Feature: All-in-One -->
+        <article class="col-2 card">
+          <h3>Studio Pro 27” All-in-One</h3>
+          <figure class="media wide">
+            <img src="studio pro 27.jpg" alt="All-in-one desktop" />
+          </figure>
+          <p><strong>Details:</strong> 12-core CPU • 32 GB RAM • 1 TB SSD • 27″ 5 K display — $1,999</p>
+          <p>Plug in and create — the ultimate desktop experience.</p>
+          <a class="btn" href="#">Customize</a>
+        </article>
+
+        <!-- Feature: Gaming tower -->
+        <article class="col-2 card">
+          <h3>Atlas Tower (Gaming)</h3>
+          <figure class="media wide">
+            <!-- External image source example -->
+            <img
+              src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=80"
+              alt="Gaming tower"
+            />
+          </figure>
+          <p><strong>Details:</strong> i7-13700F • RTX 4070 • 32 GB • 3 TB Storage — $1,899</p>
+          <p>High FPS, low temps, RGB for days.</p>
+          <a class="btn" href="#">Customize</a>
+        </article>
+      </div>
+
+      <!-- =====================================================
+           ROW 3 – One small card + one large feature card
+           Notes:
+           • Desktop: .col-1 + .col-3 (20% + 72% with gutters).
+           • Tablet/mobile: large feature stacks full width.
+           • .media.hero uses a cinematic 21:9 aspect ratio.
+           ===================================================== -->
+      <div class="row row-3">
+        <!-- Small promo/deal -->
+        <article class="col-1 card">
+          <h3>Clearance Deal</h3>
+          <figure class="media">
+            <img src="clearance deal.jpg" alt="Laptop deal" />
+          </figure>
+          <p><strong>Details:</strong> 13″ Ultrabook (i5 / 8 GB / 512 GB SSD) — Now $499</p>
+          <p>Previous-gen ultrabook in mint condition.</p>
+          <a class="btn" href="#">Shop deal</a>
+        </article>
+
+        <!-- Big feature bundle -->
+        <article class="col-3 card feature">
+          <h3>Back-to-School Bundle</h3>
+          <figure class="media hero">
+            <img src="back to school bundle.jpg" alt="Laptop bundle" />
+          </figure>
+          <!-- Keep bullets short: improves scannability and prevents wrapping issues -->
+          <p><strong>Details:</strong> Laptop + Backpack + AV + Printer • 0 % APR 12 mo • Student 10 % off — From $949</p>
+          <ul class="bullets">
+            <li>Free setup &amp; data transfer</li>
+            <li>Extra 10 % student discount</li>
+            <li>0 % APR for 12 months</li>
+          </ul>
+          <a class="btn" href="#">Build bundle</a>
+        </article>
+      </div>
+
+      <!-- =====================================================
+           ROW 4 — Full-width hero banner/promo
+           Notes:
+           • .col-4 takes near-full width on desktop (96% + gutters).
+           • Great for seasonal sales or big CTA sections.
+           ===================================================== -->
+      <div class="row row-4">
+        <article class="col-4 card hero">
+          <h2>Monitors &amp; Peripherals Sale</h2>
+          <figure class="media hero">
+            <img src="monitor.jpg" alt="Monitors and peripherals" />
+          </figure>
+          <p><strong>Details:</strong> 27–34″ IPS/VA • Mech Keyboards • Wireless Mice • USB-C Docks — Up to 35 % off</p>
+          <p>Accessories sale this week only.</p>
+          <a class="btn" href="#">Shop accessories</a>
+        </article>
+      </div>
+
+      <!-- =====================================================
+           ROW 5 — 1–2–1 layout
+           Notes:
+           • Tablet reorders items using the CSS 'order' property:
+             - Middle (.item-b) shows first on tablet for better flow.
+           • Desktop restores the natural order.
+           ===================================================== -->
+      <div class="row row-5">
+        <!-- Small info card -->
+        <article class="col-1 card item-a">
+          <h3>Care Plan</h3>
+          <figure class="media">
+            <img src="warenty.jpg" alt="Support" />
+          </figure>
+          <p><strong>Details:</strong> 2-yr parts &amp; labor • Accidental damage • Priority repair — $149</p>
+          <p>Keep your tech protected and worry-free.</p>
+        </article>
+
+        <!-- Wide card (sits in the middle on desktop; shows first on tablet) -->
+        <article class="col-2 card item-b">
+          <h3>Build-to-Order Workstations</h3>
+          <figure class="media wide">
+            <img
+              src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1600&q=80"
+              alt="Workstation build"
+            />
+          </figure>
+          <p><strong>Details:</strong> CAD/ML/Video • RTX A-Series/40-Series • 128 GB DDR5 • 8 TB NVMe — From $2,199</p>
+          <p>Precision-tuned systems for any workflow.</p>
+          <a class="btn" href="#">Request a quote</a>
+        </article>
+
+        <!-- Small info card -->
+        <article class="col-1 card item-c">
+          <h3>Student ID = Extra 10 %</h3>
+          <figure class="media">
+            <img src="student-discount.jpg" alt="Student discount" />
+          </figure>
+          <p><strong>Details:</strong> .edu email verification • Instant savings • Online &amp; In-Store — Extra -10 %</p>
+          <p>Show your .edu ID to save instantly.</p>
+        </article>
+      </div>
+
+      <!-- =====================================================
+           ROW 6 — Unique design with animated gradient borders
+           Notes:
+           • Each .fx-card has a conic-gradient ring that spins (CSS only).
+           • Title on top, centered image, details below (consistent with rest).
+           • Desktop shows 3 cards across; tablet 2; mobile stacks.
+           ===================================================== -->
+      <div class="row row-6 fx-tilt">
+        <!-- Animated card 1 -->
+        <article class="col-1 fx-card">
+          <h3>Editor’s Pick</h3>
+          <figure class="media">
+            <img src="row 6 1.jpg" alt="Editors pick laptop" />
+          </figure>
+          <p><strong>Details:</strong> i7 • 16 GB • 1 TB NVMe — $1,299</p>
+        </article>
+
+        <!-- Animated card 2 (wide image variant) -->
+        <article class="col-1 fx-card">
+          <h3>Creator Bundle</h3>
+          <figure class="media wide">
+            <img src="row 6 2.jpg" alt="Creator desk bundle" />
+          </figure>
+          <p><strong>Details:</strong> 27″ 4K + Dock + KB/M — $699</p>
+        </article>
+
+        <!-- Animated card 3 -->
+        <article class="col-1 fx-card">
+          <h3>Campus Favorite</h3>
+          <figure class="media">
+            <img src="row 6 3.jpg" alt="2-in-1 student laptop" />
+          </figure>
+          <p><strong>Details:</strong> 13″ 2-in-1 • 8 GB • 512 GB — $749</p>
+        </article>
+      </div>
+      <!-- End Row 6 -->
+    </div><!-- End .wrapper -->
+  </body>
+</html>

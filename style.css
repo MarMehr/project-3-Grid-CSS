@@ -1,0 +1,359 @@
+/* =========================================================
+   Comp584 Tech Shop — GRID VERSION (no flexbox)
+   ========================================================= */
+html{box-sizing:border-box;}
+*,*::before,*::after{box-sizing:inherit;}
+
+:root{
+  --teal-light:#A3CDD9;
+  --olive:#697361;
+  --cream:#FDF9E0;
+  --teal-muted:#A0BDBA;
+  --offwhite:#FFFFFC;
+  --gold:#D9C277;
+  --bg:#FFFFFC;
+  --text:#232A2F;
+  --card-radius:12px;
+  --card-shadow:0 2px 8px rgba(0,0,0,.06);
+  --gutter:4%;
+}
+
+/* ---------- Base ---------- */
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  margin:0;
+}
+a{color:#2772B0;text-decoration:none;}
+.wrapper{
+  width:97%;
+  max-width:1200px;
+  margin:0 auto;
+  background:var(--offwhite);
+}
+
+/* =========================================================
+   ROWS — Grid container for each "row"
+   ========================================================= */
+
+/* Every .row is now a grid container.
+   - grid-template-columns: 1fr -> one column on small screens.
+   - gap -> both row + column spacing; replaces row-gap.
+*/
+.row{
+  display:grid;               /* GRID instead of flex */
+  grid-template-columns:1fr;
+  gap:1rem;
+  padding:0 var(--gutter);
+}
+
+/* We keep col- classes mostly for background color semantics */
+[class*="col-"]{
+  /* No width control here; grid handles layout */
+}
+
+/* ---------- Desktop / Tablet layouts for each row ---------- */
+
+/* ROW 1 — 2 cards per row on tablet/desktop */
+@media (min-width:480px){
+  .row-1{
+    /* repeat(2, minmax(0,1fr)):
+       - repeat() creates 2 equal columns
+       - minmax(0,1fr) lets columns shrink to 0 and grow to share space
+    */
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+/* ROW 2 — 2 wide feature cards, but responsive
+   auto-fit + minmax allows the grid to collapse to one column if space is tight.
+*/
+@media (min-width:480px){
+  .row-2{
+    /* auto-fit tries to fit as many columns as possible.
+       minmax(260px,1fr) means:
+       - minimum 260px wide
+       - otherwise share free space equally
+    */
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  }
+}
+
+/* ROW 3 – 1 small + 1 large feature (desktop) */
+@media (min-width:768px){
+  .row-3{
+    /* two columns, with second one 3x bigger visually */
+    grid-template-columns:minmax(180px,1fr) minmax(0,3fr);
+  }
+}
+
+/* ROW 4 — full-width hero already works fine with 1 column */
+
+/* ROW 5 — 1–2–1 layout with reordering using grid-template-areas */
+.row-5{
+  /* grid-auto-rows controls the height of implicit rows.
+     Here we say: each new row is at least 260px tall, but can grow if needed.
+  */
+  grid-auto-rows:minmax(260px,auto);
+
+  /* Desktop default: 3 columns (a b c) */
+  grid-template-columns:repeat(3,minmax(0,1fr));
+
+  /* Named areas so we can reorder on tablet without changing HTML.
+     Each string is a row; each token is a named area.
+  */
+  grid-template-areas:"a b c";
+}
+
+/* Assign areas to the items */
+.row-5 .item-a{grid-area:a;}
+.row-5 .item-b{grid-area:b;}
+.row-5 .item-c{grid-area:c;}
+
+/* Tablet re-order: middle card first, then A and C below */
+@media (min-width:480px) and (max-width:767.98px){
+  .row-5{
+    /* 2-column layout on tablet */
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    /* First row: B spanning both columns;
+       second row: A then C
+    */
+    grid-template-areas:
+      "b b"
+      "a c";
+  }
+}
+
+/* Mobile: simple single column stack */
+@media (max-width:479.98px){
+  .row-5{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "a"
+      "b"
+      "c";
+  }
+}
+
+/* ROW 6 — Animated cards in a grid band */
+.row-6.fx-tilt{
+  background:#F2E8FF;
+  border-radius:12px;
+  padding:1.5rem var(--gutter);
+
+  /* GRID instead of flex layout.
+     auto-fit + minmax makes 1–3 columns depending on viewport width.
+  */
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+
+  /* place-items centers content in each grid cell:
+     - sets both align-items and justify-items at once.
+  */
+  place-items:stretch;
+  
+  /* grid-auto-flow:dense tries to fill in gaps by moving later items "up".
+     This can reduce empty space if some items are taller/shorter.
+  */
+  grid-auto-flow:dense;
+}
+
+/* Reset column background inside row-6 */
+.row-6.fx-tilt .col-1{
+  background:transparent;
+}
+
+/* =========================================================
+   Card Styling
+   ========================================================= */
+.card{
+  position:relative;
+  /* No flex. Let content stack naturally. */
+  display:block;
+  text-align:center;
+  padding:1rem;
+  background:var(--offwhite);
+  border-radius:var(--card-radius);
+  box-shadow:var(--card-shadow);
+  border:1px solid rgba(0,0,0,.04);
+  height:100%;
+  transition:transform .4s ease,box-shadow .4s ease;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 28px rgba(0,0,0,.1);
+}
+.card h3,.card h4,.hero h2{
+  margin:0 0 .6rem;
+  color:#1e272e;
+  letter-spacing:.2px;
+}
+.card p{margin:.5rem 0;line-height:1.4;}
+
+/* ---------- Colored Boxes (match “dog theme” style) ---------- */
+.col-1{background:var(--teal-light);}
+.col-2{background:var(--cream);}
+.col-3{background:var(--teal-muted);}
+.col-4{background:var(--teal-light);}
+
+/* =========================================================
+   Media (Images)
+   ========================================================= */
+.media{
+  position:relative;
+  width:70%;
+  aspect-ratio:1/1;       /* uniform square by default */
+  overflow:hidden;
+  border-radius:10px;
+  background:#eef2f7;
+  margin:.5rem auto;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card:hover .media img{transform:scale(1.05);}
+
+/* Wide/Hero variants keep their aspect ratios */
+.media.wide{aspect-ratio:16/9;width:85%;}
+.media.hero{aspect-ratio:21/9;width:90%;}
+.media.sq{aspect-ratio:1/1;width:70%;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-block;
+  margin-top:.45rem;
+  padding:.5rem .85rem;
+  background:var(--gold);
+  color:#2d2d2d;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,.05);
+}
+
+/* ---------- Lists / Details helpers ---------- */
+.feature .bullets{margin:.5rem 0 0;padding-left:1.15rem;text-align:left;}
+.row-4 .hero h2{margin-top:0;}
+.meta{margin:.5rem 0 .25rem;padding-left:1.1rem;font-size:.95rem;}
+.meta li{margin:.15rem 0;}
+.price{font-weight:700;margin:.35rem 0 .15rem;}
+.rating{font-weight:400;color:var(--olive);margin-left:.35rem;}
+
+/* ========================================================= 
+   ROW 6 — FX Cards with animated Grid layout
+   ========================================================= */
+
+/* Each fx-card is now a small internal grid */
+.fx-card{
+  position:relative;
+  display:grid; /* GRID instead of flex */
+  /* Three rows: title, flexible media, details text */
+  grid-template-rows:auto minmax(0,1fr) auto;
+  align-content:stretch;
+  justify-items:center; /* center content horizontally inside card */
+  text-align:center;
+  height:360px;          /* keeps image roughly centered on larger screens */
+  padding:1rem;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--offwhite);
+  box-shadow:var(--card-shadow);
+  transition:
+    transform .45s cubic-bezier(.2,.7,.2,1),
+    box-shadow .35s ease;
+}
+
+/* ---- Animated rotating conic-gradient border ---- */
+.fx-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:conic-gradient(from 0deg,#8ab4f8,#b892ff,#ffd586,#8ab4f8);
+  animation:ringSpin 8s linear infinite;
+  z-index:0;
+}
+
+/* Inner mask — creates the illusion of a border ring */
+.fx-card::after{
+  content:"";
+  position:absolute;
+  inset:4px;
+  border-radius:inherit;
+  background:var(--offwhite);
+  z-index:1;
+}
+
+/* ---- Card content ---- */
+.fx-card h3{
+  position:relative;
+  z-index:2;
+  margin:0;
+  font-weight:600;
+  letter-spacing:.2px;
+  color:#1e272e;
+}
+
+/* Media/image container inside fx-card */
+.fx-card .media{
+  position:relative;
+  z-index:2;
+  width:70%;
+  aspect-ratio:1/1;
+  border-radius:10px;
+  overflow:hidden;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+
+.fx-card .media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.fx-card:hover .media img{transform:scale(1.05);}
+
+.fx-card p{
+  position:relative;
+  z-index:2;
+  margin:0;
+  font-size:.95rem;
+  color:#333;
+}
+
+.fx-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 28px rgba(0,0,0,.1);
+}
+
+/* ---- Animated border rotation ---- */
+@keyframes ringSpin{
+  to{transform:rotate(360deg);}
+}
+
+/* ---------- Responsive tweaks for Row 6 ---------- */
+
+/* Tablet view adjustments */
+@media (min-width:480px) and (max-width:767.98px){
+  .fx-card{
+    height:340px;
+  }
+}
+
+/* Mobile view adjustments */
+@media (max-width:479.98px){
+  .row-6.fx-tilt{
+    /* single column on very small screens */
+    grid-template-columns:1fr;
+  }
+  .fx-card{
+    height:auto; /* allow flexible height on small screens */
+  }
+}
